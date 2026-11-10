@@ -1,0 +1,26 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<title>Фильм</title></head><body>
+<a href="/">← К каталогу</a>
+<h1><%= action.includes('edit') ? 'Редактировать' : 'Новый' %> фильм</h1>
+
+<% if (errors.length) { %>
+  <ul style="color:red">
+    <% errors.forEach(e => { %><li><%= e %></li><% }) %>
+  </ul>
+<% } %>
+
+<form method="post" action="<%= action %>">
+  <p>Название:<br><input name="title" value="<%= movie.title || '' %>" required></p>
+  <p>Год выпуска:<br><input name="release_year" type="number" value="<%= movie.release_year || '' %>" min="1888" max="2100" required></p>
+  <p>Длительность (мин):<br><input name="duration_min" type="number" value="<%= movie.duration_min || '' %>" min="1" required></p>
+  <p>Рейтинг (0–10):<br><input name="rating" type="number" step="0.1" min="0" max="10" value="<%= movie.rating ?? '' %>"></p>
+  <p>Жанр:<br>
+    <select name="genre_id" required>
+      <% genres.forEach(g => { %>
+        <option value="<%= g.id %>" <%= String(movie.genre_id) === String(g.id) ? 'selected' : '' %>><%= g.name %></option>
+      <% }) %>
+    </select></p>
+  <p>Описание:<br><textarea name="description"><%= movie.description || '' %></textarea></p>
+  <button type="submit">Сохранить</button>
+</form>
+</body></html>

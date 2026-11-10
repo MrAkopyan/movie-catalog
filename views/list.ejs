@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог фильмов</title>
+</head>
+<body>
+    <h1>Каталог фильмов</h1>
+    <a href="/movies/new">+ Добавить фильм</a>
+    
+    <% if (movies.length === 0) { %>
+        <p>Фильмов пока нет.</p>
+    <% } else { %>
+        <ul>
+            <% movies.forEach(function(m) { %>
+                <li>
+                    <a href="/movies/<%= m.id %>"><%= m.title %></a>
+                    (<%= m.release_year %>, <%= m.genre %>, <%= m.duration_min %> мин, рейтинг: <%= m.rating ? m.rating : '—' %>)
+                    — <a href="/movies/<%= m.id %>/edit">Ред.</a>
+                    <form method="post" action="/movies/<%= m.id %>/delete" style="display:inline;" onsubmit="return confirm('Удалить?')">
+                        <button type="submit">Удалить</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    <% } %>
+</body>
+</html>

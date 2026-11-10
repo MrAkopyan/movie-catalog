@@ -1,0 +1,14 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<title><%= movie.title %></title></head><body>
+<a href="/">← К каталогу</a>
+<h1><%= movie.title %></h1>
+<p>Жанр: <%= movie.genre %></p>
+<p>Год: <%= movie.release_year %></p>
+<p>Длительность: <%= movie.duration_min %> мин</p>
+<p>Рейтинг: <%= movie.rating ?? '—' %></p>
+<p><%= movie.description || '' %></p>
+<a href="/movies/<%= movie.id %>/edit">Редактировать</a>
+<form method="post" action="/movies/<%= movie.id %>/delete" onsubmit="return confirm('Удалить?')">
+  <button type="submit">Удалить</button>
+</form>
+</body></html>
